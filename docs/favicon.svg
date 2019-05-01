@@ -1,0 +1,8 @@
+<svg width="32" height="32" fill="#abc" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="9" cy="4" r="4"/>
+  <circle cx="23" cy="4" r="4"/>
+  <circle cx="9" cy="16" r="4"/>
+  <circle cx="23" cy="16" r="4"/>
+  <circle cx="9" cy="28" r="4"/>
+  <circle cx="23" cy="28" r="4"/>
+</svg>

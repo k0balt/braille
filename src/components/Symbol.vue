@@ -1,32 +1,30 @@
 <template>
   <div class="symbol">
-    <div
-      :class="{plus: true, big: isBigPlus}"
-      @mouseenter="isBigPlus = true"
-      @mouseleave="isBigPlus = false"
-      @click="insert"
-    >
-      <svg
-        role="img"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        stroke-width="6"
-        stroke-linecap="square"
-        stroke-linejoin="miter"
-        fill="none"
-        :width="plusSize"
-        :height="plusSize"
-        :stroke="plusColor"
-        :color="plusColor"
-        style="vertical-align: middle;"
-      >
-        <path d="M20 12L4 12M12 4L12 20"></path>
-      </svg>
-    </div>
-    <div>
-      <div class="title" @dblclick="$emit('dispose')">{{id+1}}</div>
-      <div class="block">
-        <dot v-for="i in 6" :key="i" :id="i-1" @active-changed="onActiveChanged"/>
+    <div class="table">
+      <div class="row">
+        <div class="cell"/>
+        <div class="cell title" @dblclick="$emit('dispose')">{{id+1}}</div>
+      </div>
+      <div class="row">
+        <div class="cell">
+          <svg
+            class="plus"
+            viewBox="0 0 32 32"
+            @mouseleave="isBigPlus = false"
+            @mouseenter="isBigPlus = true"
+            @click="insert"
+          >
+            <path
+              stroke-linecap="square"
+              :stroke="plus.color"
+              :stroke-width="plus.width"
+              :d="plus.path"
+            ></path>
+          </svg>
+        </div>
+        <div class="dots">
+          <dot v-for="i in 6" :key="i" :id="i-1" @active-changed="onActiveChanged"/>
+        </div>
       </div>
     </div>
   </div>
@@ -37,18 +35,20 @@ import { Vue, Component, Prop, Watch } from "vue-property-decorator";
 import DotComponent from "./Dot.vue";
 
 @Component({ components: { dot: DotComponent } })
-export default class SymbolDecorator extends Vue {
+export default class BlockDecorator extends Vue {
   @Prop() id!: number;
   isBigPlus = false;
-
-  get plusSize() {
-    return this.isBigPlus ? "24px" : "12px";
-  }
-
-  get plusColor() {
-    return this.isBigPlus ? "#bbb" : "#888";
-  }
   dots = [false, false, false, false, false, false];
+
+  get plus() {
+    return {
+      color: this.isBigPlus ? "#bbb" : "#888",
+      width: this.isBigPlus ? 6 : 4,
+      path: this.isBigPlus
+        ? "M24 16L8 16M16 8L16 24"
+        : "M20 16L12 16M16 12L16 20"
+    };
+  }
 
   onActiveChanged(isActive: boolean, id: number) {
     this.dots[id] = isActive;
@@ -67,6 +67,16 @@ export default class SymbolDecorator extends Vue {
 </script>
 
 <style>
+.table {
+  display: table;
+}
+.row {
+  display: table-row;
+}
+.cell {
+  display: table-cell;
+  vertical-align: middle;
+}
 .symbol {
   display: inline-flex;
   -webkit-touch-callout: none;
@@ -78,15 +88,9 @@ export default class SymbolDecorator extends Vue {
 }
 
 .plus {
-  align-self: center;
-  padding-left: 10px;
-  padding-right: 10px;
   cursor: pointer;
-}
-
-.big {
-  padding-left: 4px;
-  padding-right: 4px;
+  width: 32px;
+  height: 32px;
 }
 
 .title {
@@ -95,7 +99,7 @@ export default class SymbolDecorator extends Vue {
   cursor: pointer;
 }
 
-.block {
+.dots {
   display: flex;
   flex-wrap: wrap;
   width: 100px;

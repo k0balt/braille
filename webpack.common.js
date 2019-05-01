@@ -7,7 +7,7 @@ module.exports = {
   entry: "./src/index.ts",
   output: {
     path: path.resolve(__dirname, "./dist"),
-    publicPath: "/dist/",
+    publicPath: "./dist/",
     filename: "build.js"
   },
   module: {
@@ -18,17 +18,22 @@ module.exports = {
       },
       {
         test: /\.vue$/,
-        loader: "vue-loader",
-        options: {
-          loaders: {
-            // Since sass-loader (weirdly) has SCSS as its default parse mode, we map
-            // the "scss" and "sass" values for the lang attribute to the right configs here.
-            // other preprocessors should work out of the box, no loader config like this necessary.
-            scss: "vue-style-loader!css-loader!sass-loader",
-            sass: "vue-style-loader!css-loader!sass-loader?indentedSyntax"
-          }
-          // other vue-loader options go here
-        }
+        use: [
+          {
+            loader: "vue-loader",
+            options: {
+              loaders: {
+                // Since sass-loader (weirdly) has SCSS as its default parse mode, we map
+                // the "scss" and "sass" values for the lang attribute to the right configs here.
+                // other preprocessors should work out of the box, no loader config like this necessary.
+                scss: "vue-style-loader!css-loader!sass-loader",
+                sass: "vue-style-loader!css-loader!sass-loader?indentedSyntax"
+              }
+              // other vue-loader options go here
+            }
+          },
+          "vue-svg-inline-loader"
+        ]
       },
       {
         test: /\.tsx?$/,
@@ -39,10 +44,10 @@ module.exports = {
         }
       },
       {
-        test: /\.(png|jpg|gif|svg|ico|manifest|xml)$/,
+        test: /\.(png|jpg|gif|ico|svg|manifest|xml)$/,
         loader: "file-loader",
         options: {
-          name: "[name].[ext]?[hash]"
+          name: "[name].[ext]"
         }
       }
     ]

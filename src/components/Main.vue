@@ -1,47 +1,48 @@
 <template>
-  <div class="wrapper">
-    <main>
-      &nbsp; index:
-      <span class="index" v-for="i in symbols.length-1" :key="i">{{i}}</span>
-      <br>&nbsp;&nbsp;&nbsp; rus:
-      <char v-for="(v, i) in get(p => p.rus)" :key="`rus-${i+v}`" :content="v"/>
-      <br>&nbsp;&nbsp;&nbsp; eng:
-      <char v-for="(v, i) in get(p => p.eng)" :key="`eng-${i+v}`" :content="v"/>
-      <br>&nbsp;&nbsp;&nbsp; num:
-      <char v-for="(v, i) in get(p => p.num)" :key="`num-${i+v}`" :content="v"/>
-      <br>inv rus:
-      <char v-for="(v, i) in get(p => p.invRus)" :key="`invRus-${i+v}`" :content="v"/>
-      <br>inv eng:
-      <char v-for="(v, i) in get(p => p.invEng)" :key="`invEng-${i+v}`" :content="v"/>
-      <br>inv num:
-      <char v-for="(v, i) in get(p => p.invNum)" :key="`invNum-${i+v}`" :content="v"/>
-      <hr>
-      <symbol-component
-        v-for="(s, index) in symbols"
-        :key="`s-${s.Uid}`"
-        :id="index"
-        @value-changed="onValueChanged"
-        @dispose="onDispose(index)"
-        @insert="onInsert(index)"
-      />
-    </main>
-    <footer>
-      <a class="left" @click="symbols = [{ Uid: counter++, value: '000000' }]">clear</a>
-      <a class="right" href="https://github.com/k0balt/braille/" target="blank">source</a>
-    </footer>
-  </div>
+  <main>
+    &nbsp; index:
+    <span class="index" v-for="i in symbols.length-1" :key="i">{{i}}</span>
+    <br>&nbsp;&nbsp;&nbsp; rus:
+    <char v-for="(v, i) in get(p => p.rus)" :key="`rus-${i+v}`" :content="v"/>
+    <br>&nbsp;&nbsp;&nbsp; eng:
+    <char v-for="(v, i) in get(p => p.eng)" :key="`eng-${i+v}`" :content="v"/>
+    <br>&nbsp;&nbsp;&nbsp; num:
+    <char v-for="(v, i) in get(p => p.num)" :key="`num-${i+v}`" :content="v"/>
+    <br>inv rus:
+    <char v-for="(v, i) in get(p => p.invRus)" :key="`invRus-${i+v}`" :content="v"/>
+    <br>inv eng:
+    <char v-for="(v, i) in get(p => p.invEng)" :key="`invEng-${i+v}`" :content="v"/>
+    <br>inv num:
+    <char v-for="(v, i) in get(p => p.invNum)" :key="`invNum-${i+v}`" :content="v"/>
+    <hr>
+    <symb
+      v-for="(s, i) in symbols"
+      :key="`s-${s.Uid}`"
+      :id="i"
+      @value-changed="onValueChanged"
+      @dispose="onDispose(i)"
+      @insert="onInsert(i)"
+    />
+    <img
+      class="footer left"
+      svg-inline
+      src="../../resources/trash.svg"
+      @click="symbols = [ getNewSymbol() ]"
+    >
+    <img class="footer right" svg-inline src="../../resources/github.svg" @click="goToGitHub">
+  </main>
 </template>
 
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
-import SymbolComponent from "./Symbol.vue";
+import Symb from "./Symbol.vue";
 import GetValue, { Value } from "../dict";
-import CharComponent from "./Char.vue";
+import Char from "./Char.vue";
 
-@Component({ components: { SymbolComponent, Char: CharComponent } })
+@Component({ components: { Symb, Char } })
 export default class MainDecorator extends Vue {
   private counter = 1;
-  private symbols = [{ Uid: 0, value: "000000" }];
+  private symbols = [this.getNewSymbol()];
 
   get(f: (p: Value) => string[]) {
     return this.values.slice(0, -1).map(f);
@@ -50,7 +51,7 @@ export default class MainDecorator extends Vue {
   onValueChanged(id: number, value: string) {
     this.symbols[id].value = value;
     if (id === this.symbols.length - 1) {
-      this.symbols.push({ Uid: this.counter++, value: "000000" });
+      this.symbols.push(this.getNewSymbol());
     }
   }
 
@@ -65,7 +66,15 @@ export default class MainDecorator extends Vue {
   }
 
   onInsert(id: number) {
-    this.symbols.splice(id, 0, { Uid: this.counter++, value: "000000" });
+    this.symbols.splice(id, 0, this.getNewSymbol());
+  }
+
+  goToGitHub() {
+    window.open("https://github.com/k0balt/braille/", "_blank");
+  }
+
+  getNewSymbol() {
+    return { Uid: this.counter++, value: "000000" };
   }
 }
 </script>
@@ -79,33 +88,19 @@ export default class MainDecorator extends Vue {
 }
 
 .left {
-  cursor: pointer;
+  left: 12px;
 }
 
 .right {
-  float: right;
-  color: #333;
+  right: 12px;
 }
 
-.wrapper {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  font-family: "Roboto Mono", monospace;
-}
-
-main {
-  flex: 1 0 auto;
-  font-size: 2em;
-  margin: 12px;
-}
-
-footer {
-  flex: 0 0 auto;
-  margin: 12px;
-}
-
-hr {
-  margin: 12px 0;
+.footer {
+  vertical-align: bottom;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  position: fixed;
+  bottom: 12px;
 }
 </style>
