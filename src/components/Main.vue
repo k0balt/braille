@@ -88,11 +88,11 @@ export default class MainDecorator extends Vue {
 }
 
 .left {
-  left: 12px;
+  left: 8px;
 }
 
 .right {
-  right: 12px;
+  right: 8px;
 }
 
 .footer {
@@ -101,6 +101,6 @@ export default class MainDecorator extends Vue {
   height: 32px;
   cursor: pointer;
   position: fixed;
-  bottom: 12px;
+  bottom: 8px;
 }
 </style>
