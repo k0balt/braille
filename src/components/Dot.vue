@@ -4,7 +4,7 @@
     @click="onClick"
     @mouseenter="isHighlighted = true"
     @mouseleave="isHighlighted = false"
-  />
+  >{{id+1}}</div>
 </template>
 
 <script lang="ts">
@@ -30,16 +30,24 @@ export default class DotDecorator extends Vue {
   width: 42px;
   height: 42px;
   margin: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  font-size: 0.4em;
   background-color: #333;
+  color: #333;
   display: inline-flex;
   cursor: pointer;
 }
 
 .active {
   background-color: #bbb;
+  color: #bbb;
 }
 
 .highlight {
   background-color: #888;
+  color: #333;
 }
 </style>

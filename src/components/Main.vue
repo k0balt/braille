@@ -2,19 +2,19 @@
   <main>
     &nbsp; index:
     <span class="index" v-for="i in symbols.length-1" :key="i">{{i}}</span>
-    <br>&nbsp;&nbsp;&nbsp; rus:
-    <char v-for="(v, i) in get(p => p.rus)" :key="`rus-${i+v}`" :content="v"/>
-    <br>&nbsp;&nbsp;&nbsp; eng:
-    <char v-for="(v, i) in get(p => p.eng)" :key="`eng-${i+v}`" :content="v"/>
-    <br>&nbsp;&nbsp;&nbsp; num:
-    <char v-for="(v, i) in get(p => p.num)" :key="`num-${i+v}`" :content="v"/>
-    <br>inv rus:
-    <char v-for="(v, i) in get(p => p.invRus)" :key="`invRus-${i+v}`" :content="v"/>
-    <br>inv eng:
-    <char v-for="(v, i) in get(p => p.invEng)" :key="`invEng-${i+v}`" :content="v"/>
-    <br>inv num:
-    <char v-for="(v, i) in get(p => p.invNum)" :key="`invNum-${i+v}`" :content="v"/>
-    <hr>
+    <br />&nbsp;&nbsp;&nbsp; rus:
+    <char v-for="(v, i) in get(p => p.rus)" :key="`rus-${i+v}`" :content="v" />
+    <br />&nbsp;&nbsp;&nbsp; eng:
+    <char v-for="(v, i) in get(p => p.eng)" :key="`eng-${i+v}`" :content="v" />
+    <br />&nbsp;&nbsp;&nbsp; num:
+    <char v-for="(v, i) in get(p => p.num)" :key="`num-${i+v}`" :content="v" />
+    <br />inv rus:
+    <char v-for="(v, i) in get(p => p.invRus)" :key="`invRus-${i+v}`" :content="v" />
+    <br />inv eng:
+    <char v-for="(v, i) in get(p => p.invEng)" :key="`invEng-${i+v}`" :content="v" />
+    <br />inv num:
+    <char v-for="(v, i) in get(p => p.invNum)" :key="`invNum-${i+v}`" :content="v" />
+    <hr />
     <symb
       v-for="(s, i) in symbols"
       :key="`s-${s.Uid}`"
@@ -28,8 +28,15 @@
       svg-inline
       src="../../resources/trash.svg"
       @click="symbols = [ getNewSymbol() ]"
-    >
-    <img class="footer right" svg-inline src="../../resources/github.svg" @click="goToGitHub">
+      alt="clear"
+    />
+    <img
+      class="footer right"
+      svg-inline
+      src="../../resources/github.svg"
+      @click="goToGitHub"
+      alt="GitHub"
+    />
   </main>
 </template>
 

@@ -8,10 +8,10 @@
       @mouseenter="isBigPlus = true"
       @click="insert"
     >
-      <path stroke-linecap="square" :stroke="plus.color" :stroke-width="plus.width" :d="plus.path"></path>
+      <path stroke-linecap="square" :stroke="plus.color" :stroke-width="plus.width" :d="plus.path" />
     </svg>
     <div class="dots">
-      <dot v-for="i in 6" :key="i" :id="i-1" @active-changed="onActiveChanged"/>
+      <dot v-for="i in 6" :key="i" :id="i-1" @active-changed="onActiveChanged" />
     </div>
   </div>
 </template>
@@ -88,7 +88,9 @@ export default class BlockDecorator extends Vue {
 .dots {
   display: flex;
   flex-wrap: wrap;
+  flex-direction: column;
   width: 100px;
+  height: 150px;
   -ms-grid-row: 2;
   -ms-grid-column: 2;
   grid-row: 2;
