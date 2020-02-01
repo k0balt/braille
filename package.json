@@ -10,6 +10,10 @@
   },
   "author": "",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/k0balt/braille.git"
+  },
   "devDependencies": {
     "clean-webpack-plugin": "^2.0.2",
     "css-loader": "^2.1.1",
@@ -18,17 +22,17 @@
     "lodash": "^4.17.15",
     "svg-transform-loader": "^2.0.8",
     "ts-loader": "^5.4.5",
-    "typescript": "^3.6.2",
+    "typescript": "^3.7.5",
     "uglifyjs-webpack-plugin": "^2.2.0",
-    "vue": "^2.6.10",
-    "vue-class-component": "^7.1.0",
-    "vue-loader": "^15.7.1",
-    "vue-property-decorator": "^8.2.2",
+    "vue": "^2.6.11",
+    "vue-class-component": "^7.2.2",
+    "vue-loader": "^15.8.3",
+    "vue-property-decorator": "^8.3.0",
     "vue-style-loader": "^4.1.2",
-    "vue-svg-inline-loader": "^1.2.18",
-    "vue-template-compiler": "^2.6.10",
-    "webpack": "^4.39.3",
-    "webpack-cli": "^3.3.8",
+    "vue-svg-inline-loader": "^1.4.5",
+    "vue-template-compiler": "^2.6.11",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10",
     "webpack-merge": "^4.2.2"
   }
 }
